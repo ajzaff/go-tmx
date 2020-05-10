@@ -1,25 +1,3 @@
-/*
-   Copyright (c) Utkan Güngördü <utkan@freeconsole.org>
-
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 3 or
-   (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-
-   GNU General Public License for more details
-
-
-   You should have received a copy of the GNU General Public
-   License along with this program; if not, write to the
-   Free Software Foundation, Inc.,
-   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
 package tmx
 
 import (
@@ -28,7 +6,7 @@ import (
 )
 
 var (
-	testfiles = []string{"testdata/base64.tmx", "testdata/base64-zlib.tmx", "testdata/csv.tmx", "testdata/xml.tmx"}
+	testfiles = []string{"testdata/base64-gzip.tmx", "testdata/base64-zlib.tmx"}
 
 	layer0Data = []GID{
 		1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8,
@@ -97,7 +75,7 @@ func TestRead(t *testing.T) {
 		m, err := Read(r)
 		chk(err)
 
-		layer0GIDs, err := m.decodeLayer(&m.Layers[0])
+		layer0GIDs, err := m.Layers[0].Decode()
 		chk(err)
 
 		chkLayerData(layer0Data, layer0GIDs)
